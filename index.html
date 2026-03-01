@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>아이뽀픽(AippoPick) - 내 손안의 똑똑한 공모주 비서</title>
+    <meta
+      name="description"
+      content="청약 일정부터 증권사 수익률까지, 공모주의 모든 것을 한 앱에서. 아이뽀픽으로 스마트한 공모주 투자를 시작하세요."
+    />
+
+    <!-- Open Graph -->
+    <meta
+      property="og:title"
+      content="아이뽀픽(AippoPick) - 내 손안의 똑똑한 공모주 비서"
+    />
+    <meta
+      property="og:description"
+      content="청약 일정부터 증권사 수익률까지, 공모주의 모든 것을 한 앱에서."
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'ipo-blue': '#FED45C',
+              'ipo-red': '#F87171',
+              'ipo-green': '#34D399',
+              'ipo-bg': '#F8FAFC',
+            },
+            fontFamily: {
+              sans: [
+                'Pretendard',
+                '-apple-system',
+                'BlinkMacSystemFont',
+                'system-ui',
+                'Helvetica Neue',
+                'sans-serif',
+              ],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- Pretendard Font -->
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+
+    <style>
+      /* Phone Mockup */
+      .phone {
+        position: relative;
+        width: 260px;
+        height: 530px;
+        background: #1a1a2e;
+        border-radius: 40px;
+        padding: 10px;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+          0 30px 60px -15px rgba(0, 0, 0, 0.3);
+        flex-shrink: 0;
+      }
+
+      .phone::before {
+        content: '';
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90px;
+        height: 26px;
+        background: #1a1a2e;
+        border-radius: 0 0 14px 14px;
+        z-index: 10;
+      }
+
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        border-radius: 30px;
+        overflow: hidden;
+      }
+
+      /* Phone Small Variant */
+      .phone-sm {
+        width: 220px;
+        height: 450px;
+        border-radius: 34px;
+        padding: 8px;
+      }
+
+      .phone-sm::before {
+        top: 8px;
+        width: 72px;
+        height: 22px;
+        border-radius: 0 0 12px 12px;
+      }
+
+      .phone-sm .phone-screen {
+        border-radius: 26px;
+      }
+
+      /* Gradient backgrounds */
+      .hero-gradient {
+        background: linear-gradient(
+          135deg,
+          #f8fafc 0%,
+          #fefce8 50%,
+          #f8fafc 100%
+        );
+      }
+
+      .cta-gradient {
+        background: linear-gradient(135deg, #fed45c 0%, #e5b830 100%);
+      }
+
+      /* 스토어 배지: 가이드라인상 색·비율·크기 변경·애니메이션 금지 */
+      .store-btn {
+        cursor: pointer;
+        position: relative;
+        z-index: 5;
+      }
+      .store-btn img {
+        display: block;
+        pointer-events: none; /* 클릭이 img가 아닌 a에 전달되도록 */
+      }
+
+      /* Calendar bar */
+      .cal-bar {
+        height: 4px;
+        border-radius: 2px;
+        position: absolute;
+        bottom: 2px;
+        left: 1px;
+        right: 1px;
+      }
+    </style>
+  </head>
+
+  <body class="bg-ipo-bg font-sans text-gray-800 antialiased">
+    <!-- ============================================ -->
+    <!-- Header -->
+    <!-- ============================================ -->
+    <header
+      class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100"
+    >
+      <div
+        class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between"
+      >
+        <a href="#" class="flex items-center gap-2">
+          <img
+            src="assets/icon-aippopick.png"
+            alt="아이뽀픽"
+            class="w-8 h-8 object-contain rounded-lg"
+          />
+          <span class="font-bold text-lg text-gray-900">아이뽀픽</span>
+        </a>
+        <!-- <a
+          href="#download"
+          class="bg-ipo-blue text-gray-900 text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#E5B830] transition-colors"
+        >
+          다운로드
+        </a> -->
+      </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- Hero Section -->
+    <!-- ============================================ -->
+    <section
+      class="hero-gradient min-h-screen flex items-center pt-14"
+      id="hero"
+    >
+      <div class="max-w-5xl mx-auto px-4 w-full">
+        <div
+          class="flex flex-col sm:flex-row items-center gap-10 sm:gap-16 py-16 sm:py-0"
+        >
+          <!-- Text -->
+          <div
+            class="flex-1 text-center sm:text-left"
+            data-aos="fade-right"
+            data-aos-duration="800"
+          >
+            <h1
+              class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight"
+            >
+              공모주 투자,<br />
+              이제
+              <span class="text-ipo-blue">아이뽀픽</span>
+              하나면 끝!
+            </h1>
+            <p class="mt-4 text-base sm:text-lg text-gray-500 leading-relaxed">
+              청약 일정부터 증권사 수익률까지,<br class="hidden sm:block" />
+              공모주의 모든 것을 한 앱에서.
+            </p>
+            <div
+              class="store-btns-wrapper mt-8 flex flex-col sm:flex-row items-center gap-3 relative z-10"
+            >
+              <!-- App Store (공식 배지: Apple 가이드라인) -->
+              <a
+                href="javascript:void(0)"
+                class="store-btn inline-block"
+                aria-label="App Store에서 다운로드"
+              >
+                <img
+                  src="assets/app-store-badge.svg"
+                  alt="Download on the App Store"
+                  width="135"
+                  height="40"
+                  style="height: 40px; width: auto"
+                />
+              </a>
+              <!-- Google Play (공식 배지: Google 가이드라인) -->
+              <a
+                href="https://play.google.com/store/apps/details?id=com.itl.aippopick"
+                class="store-btn inline-block"
+                aria-label="Google Play에서 다운로드"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="assets/google-play-badge.svg"
+                  alt="Get it on Google Play"
+                  width="135"
+                  height="40"
+                  style="height: 40px; width: auto"
+                />
+              </a>
+            </div>
+          </div>
+
+          <!-- Phone Mockup: 오늘의 공모주 -->
+          <div
+            class="flex-shrink-0"
+            data-aos="fade-left"
+            data-aos-duration="800"
+            data-aos-delay="200"
+          >
+            <div class="phone">
+              <div class="phone-screen overflow-hidden flex items-center justify-center p-0">
+                <img
+                  src="assets/hero-phone.png"
+                  alt="오늘의 공모주 화면"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Feature 01: 캘린더 -->
+    <!-- ============================================ -->
+    <section class="bg-white py-20 sm:py-28" id="calendar">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="flex flex-col sm:flex-row items-center gap-10 sm:gap-16">
+          <!-- Phone Mockup: Calendar -->
+          <div
+            class="flex-shrink-0 order-2 sm:order-1"
+            data-aos="fade-right"
+            data-aos-duration="800"
+          >
+            <div class="phone">
+              <div class="phone-screen overflow-hidden flex items-center justify-center p-0">
+                <img
+                  src="assets/calendar-phone.png"
+                  alt="캘린더 화면"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div
+            class="flex-1 text-center sm:text-left order-1 sm:order-2"
+            data-aos="fade-left"
+            data-aos-duration="800"
+          >
+            <span
+              class="inline-block text-blue-600 text-sm font-semibold bg-blue-50 px-3 py-1 rounded-full mb-4"
+              >Calendar</span
+            >
+            <h2
+              class="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight"
+            >
+              한눈에 보는<br />
+              공모주 일정
+            </h2>
+            <p class="mt-4 text-gray-500 leading-relaxed">
+              청약부터 상장까지,<br />
+              <strong class="text-gray-700">캘린더 하나로 놓치지 마세요.</strong
+              ><br />
+              <span class="text-sm"
+                >색상으로 구분되는 직관적인 일정 관리로<br />
+                중요한 투자 기회를 절대 놓치지 않습니다.</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Feature 02: 홈 화면 위젯 -->
+    <!-- ============================================ -->
+    <section class="bg-ipo-bg py-20 sm:py-28" id="widget">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="flex flex-col sm:flex-row items-center gap-10 sm:gap-16">
+          <!-- Text -->
+          <div
+            class="flex-1 text-center sm:text-left"
+            data-aos="fade-right"
+            data-aos-duration="800"
+          >
+            <span
+              class="inline-block text-ipo-green text-sm font-semibold bg-green-50 px-3 py-1 rounded-full mb-4"
+              >Widget</span
+            >
+            <h2
+              class="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight"
+            >
+              앱을 열지 않아도<br />
+              홈 화면에서 바로
+            </h2>
+            <p class="mt-4 text-gray-500 leading-relaxed">
+              홈 화면 위젯으로<br />
+              <strong class="text-gray-700"
+                >오늘의 공모주 일정을 한눈에 확인하세요.</strong
+              ><br />
+              <span class="text-sm"
+                >앱을 열지 않아도 청약 시작, 상장일, 환불일을<br />
+                홈 화면에서 바로 확인할 수 있습니다.</span
+              >
+            </p>
+          </div>
+
+          <!-- Phone Mockup: Widget on Home Screen -->
+          <div
+            class="flex-shrink-0"
+            data-aos="fade-left"
+            data-aos-duration="800"
+          >
+            <div class="phone">
+              <div class="phone-screen overflow-hidden flex items-center justify-center p-0">
+                <img
+                  src="assets/widget-phone.png"
+                  alt="홈 화면 위젯"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Feature 03: 내 증권사 필터링 -->
+    <!-- ============================================ -->
+    <section class="bg-white py-20 sm:py-28" id="filter">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="flex flex-col sm:flex-row items-center gap-10 sm:gap-16">
+          <!-- Phone Mockup: Filter -->
+          <div
+            class="flex-shrink-0 order-2 sm:order-1"
+            data-aos="fade-right"
+            data-aos-duration="800"
+          >
+            <div class="phone">
+              <div class="phone-screen overflow-hidden flex items-center justify-center p-0">
+                <img
+                  src="assets/filter-phone.png"
+                  alt="내 증권사 필터 화면"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Text -->
+            <div
+              class="flex-1 text-center sm:text-left order-1 sm:order-2"
+              data-aos="fade-left"
+              data-aos-duration="800"
+            >
+            <span
+              class="inline-block text-ipo-red text-sm font-semibold bg-red-50 px-3 py-1 rounded-full mb-4"
+              >Filter</span
+            >
+            <h2
+              class="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight"
+            >
+              내 증권사만<br />
+              골라서 보기
+            </h2>
+            <p class="mt-4 text-gray-500 leading-relaxed">
+              수십 개 증권사 중에서<br />
+              <strong class="text-gray-700"
+                >내가 계좌를 가진 증권사만 선택하세요.</strong
+              ><br />
+              <span class="text-sm"
+                >불필요한 정보는 걸러내고,<br />
+                나에게 해당되는 공모주만 깔끔하게 보여드립니다.</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Feature 04: 맞춤 알림 -->
+    <!-- ============================================ -->
+    <section class="bg-ipo-bg py-20 sm:py-28" id="notification">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="flex flex-col sm:flex-row items-center gap-10 sm:gap-16">
+          <!-- Text -->
+          <div
+            class="flex-1 text-center sm:text-left"
+            data-aos="fade-right"
+            data-aos-duration="800"
+          >
+            <span
+              class="inline-block text-purple-600 text-sm font-semibold bg-purple-50 px-3 py-1 rounded-full mb-4"
+              >Notification</span
+            >
+            <h2
+              class="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight"
+            >
+              내 증권사 공모주,<br />
+              알림으로 놓치지 않기
+            </h2>
+            <p class="mt-4 text-gray-500 leading-relaxed">
+              설정한 증권사에서 공모주가 시작되면<br />
+              <strong class="text-gray-700"
+                >푸시 알림으로 즉시 알려드립니다.</strong
+              ><br />
+              <span class="text-sm"
+                >청약 시작, 상장일, 환불일까지<br />
+                중요한 일정을 하나도 놓치지 마세요.</span
+              >
+            </p>
+          </div>
+
+          <!-- Phone Mockup: Push Notifications -->
+          <div
+            class="flex-shrink-0"
+            data-aos="fade-left"
+            data-aos-duration="800"
+          >
+            <div class="phone">
+              <div
+                class="phone-screen"
+                style="
+                  background: linear-gradient(
+                    160deg,
+                    #f3e8ff 0%,
+                    #ede9fe 40%,
+                    #e0e7ff 100%
+                  );
+                "
+              >
+                <div class="px-4 pt-12 pb-4">
+                  <!-- Time Display -->
+                  <div class="text-center mb-4">
+                    <p
+                      class="text-3xl font-extralight text-gray-800 tracking-tight"
+                    >
+                      8:30
+                    </p>
+                    <p class="text-[10px] text-gray-500 mt-0.5">
+                      2월 14일 금요일
+                    </p>
+                  </div>
+                  <!-- Notification Cards -->
+                  <div class="space-y-2.5">
+                    <!-- Notification 1 -->
+                    <div
+                      class="bg-white/90 backdrop-blur rounded-2xl p-3 shadow-sm border border-white/50"
+                    >
+                      <div class="flex items-start gap-2.5">
+                        <img
+                          src="assets/icon-aippopick.png"
+                          alt="아이뽀픽"
+                          class="w-8 h-8 object-contain rounded-lg flex-shrink-0 mt-0.5"
+                        />
+                        <div class="flex-1 min-w-0">
+                          <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-800"
+                              >아이뽀픽</span
+                            >
+                            <span class="text-[9px] text-gray-400">지금</span>
+                          </div>
+                          <p
+                            class="text-[11px] text-gray-600 mt-0.5 leading-relaxed"
+                          >
+                            <strong class="text-ipo-blue">미래에셋증권</strong
+                            >에서 LG에너지솔루션 청약이 오늘 시작됩니다!
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Notification 2 -->
+                    <div
+                      class="bg-white/90 backdrop-blur rounded-2xl p-3 shadow-sm border border-white/50"
+                    >
+                      <div class="flex items-start gap-2.5">
+                        <img
+                          src="assets/icon-aippopick.png"
+                          alt="아이뽀픽"
+                          class="w-8 h-8 object-contain rounded-lg flex-shrink-0 mt-0.5"
+                        />
+                        <div class="flex-1 min-w-0">
+                          <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-800"
+                              >아이뽀픽</span
+                            >
+                            <span class="text-[9px] text-gray-400"
+                              >30분 전</span
+                            >
+                          </div>
+                          <p
+                            class="text-[11px] text-gray-600 mt-0.5 leading-relaxed"
+                          >
+                            <strong class="text-ipo-blue">한국투자증권</strong>
+                            카카오뱅크 청약 마감이 내일입니다. 서두르세요!
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Notification 3 -->
+                    <div
+                      class="bg-white/90 backdrop-blur rounded-2xl p-3 shadow-sm border border-white/50"
+                    >
+                      <div class="flex items-start gap-2.5">
+                        <img
+                          src="assets/icon-aippopick.png"
+                          alt="아이뽀픽"
+                          class="w-8 h-8 object-contain rounded-lg flex-shrink-0 mt-0.5"
+                        />
+                        <div class="flex-1 min-w-0">
+                          <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-800"
+                              >아이뽀픽</span
+                            >
+                            <span class="text-[9px] text-gray-400">어제</span>
+                          </div>
+                          <p
+                            class="text-[11px] text-gray-600 mt-0.5 leading-relaxed"
+                          >
+                            SK바이오사이언스
+                            <strong class="text-ipo-green">환불금</strong>이
+                            오늘 입금됩니다. 계좌를 확인하세요!
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Notification 4 -->
+                    <div
+                      class="bg-white/90 backdrop-blur rounded-2xl p-3 shadow-sm border border-white/50"
+                    >
+                      <div class="flex items-start gap-2.5">
+                        <img
+                          src="assets/icon-aippopick.png"
+                          alt="아이뽀픽"
+                          class="w-8 h-8 object-contain rounded-lg flex-shrink-0 mt-0.5"
+                        />
+                        <div class="flex-1 min-w-0">
+                          <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-800"
+                              >아이뽀픽</span
+                            >
+                            <span class="text-[9px] text-gray-400">어제</span>
+                          </div>
+                          <p
+                            class="text-[11px] text-gray-600 mt-0.5 leading-relaxed"
+                          >
+                            현대엔지니어링이
+                            <strong class="text-ipo-red">내일 상장</strong
+                            >합니다. 시초가를 확인하세요!
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Conversion Section -->
+    <!-- ============================================ -->
+    <section class="cta-gradient py-20 sm:py-28" id="download">
+      <div
+        class="max-w-3xl mx-auto px-4 text-center"
+        data-aos="fade-up"
+        data-aos-duration="800"
+      >
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-6">
+          <span
+            class="inline-flex items-center gap-1.5 bg-black/10 text-gray-900 text-sm px-3 py-1.5 rounded-full"
+          >
+            <svg
+              class="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"
+              />
+            </svg>
+            홈 화면 위젯
+          </span>
+          <span
+            class="inline-flex items-center gap-1.5 bg-black/10 text-gray-900 text-sm px-3 py-1.5 rounded-full"
+          >
+            <svg
+              class="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+              />
+            </svg>
+            내 증권사 필터
+          </span>
+          <span
+            class="inline-flex items-center gap-1.5 bg-black/10 text-gray-900 text-sm px-3 py-1.5 rounded-full"
+          >
+            <svg
+              class="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+              />
+            </svg>
+            맞춤 푸시 알림
+          </span>
+        </div>
+        <h2
+          class="text-2xl sm:text-4xl font-extrabold text-gray-900 leading-tight"
+        >
+          지금 바로<br />
+          아이뽀픽을 만나보세요
+        </h2>
+        <p class="mt-4 text-gray-800 leading-relaxed">
+          위젯으로 빠르게, 필터로 정확하게, 알림으로 놓치지 않게.<br />
+          <span class="text-sm"
+            >내가 사용하는 증권사의 공모주만 골라보고,<br />
+            중요한 일정은 푸시 알림으로 즉시 받아보세요.</span
+          >
+        </p>
+        <div
+          class="store-btns-wrapper mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 relative z-10"
+        >
+          <!-- App Store (공식 배지) -->
+          <a
+            href="javascript:void(0)"
+            class="store-btn inline-block"
+            aria-label="App Store에서 다운로드"
+          >
+            <img
+              src="assets/app-store-badge.svg"
+              alt="Download on the App Store"
+              width="135"
+              height="40"
+              style="height: 40px; width: auto"
+            />
+          </a>
+          <!-- Google Play (공식 배지) -->
+          <a
+            href="https://play.google.com/store/apps/details?id=com.itl.aippopick"
+            class="store-btn inline-block"
+            aria-label="Google Play에서 다운로드"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="assets/google-play-badge.svg"
+              alt="Get it on Google Play"
+              width="135"
+              height="40"
+              style="height: 40px; width: auto"
+            />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Footer -->
+    <!-- ============================================ -->
+    <footer class="bg-gray-900 text-gray-400 py-10">
+      <div class="max-w-5xl mx-auto px-4">
+        <div
+          class="flex flex-col sm:flex-row items-center justify-between gap-4"
+        >
+          <div class="flex items-center gap-2">
+            <img
+              src="assets/icon-aippopick.png"
+              alt="아이뽀픽"
+              class="w-7 h-7 object-contain rounded-lg"
+            />
+            <span class="font-bold text-sm text-gray-300">아이뽀픽</span>
+          </div>
+          <div class="flex items-center gap-4 text-xs">
+            <a href="terms.html" class="hover:text-gray-200 transition-colors"
+              >서비스 이용약관</a
+            >
+            <span class="text-gray-600">|</span>
+            <a href="privacy.html" class="hover:text-gray-200 transition-colors"
+              >개인정보 처리방침</a
+            >
+          </div>
+        </div>
+        <div
+          class="mt-6 pt-6 border-t border-gray-800 text-center text-xs text-gray-500"
+        >
+          &copy; 2026 아이뽀픽. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        once: true,
+        duration: 800,
+        easing: 'ease-out-cubic',
+      });
+    </script>
+  </body>
+</html>
